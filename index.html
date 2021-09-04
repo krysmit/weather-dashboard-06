@@ -4,19 +4,78 @@
     <meta charset='utf-8'>
     <title>Weather Dashboard</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel='stylesheet' type='text/css' media='screen' href='./assets/style.css'>
+    <script src="https://momentjs.com/downloags/moment.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u">
+    <!--<link rel='stylesheet' type='text/css' media='screen' href='./assets/style.css'>-->
 </head>
 
 <body>
 <div class="row">
     <div class="col-sm">
-        <input type="text">
+        <input type="text" id="searchInput">
         <button type="button" class="btn-style" id="search-style">Search</button>
     </div>
 </div>
+<div class="row" id="myWeather"></div>
 
-<script src='./assets/script.js'></script>
+<!--<script src='./assets/script.js'></script>-->
 </body>
 
 </html>
+
+<script>
+
+let $searchButton = $("search-style");
+let $searchInput = $("btn-style");
+
+//panels to display information
+function getPanelHTML(date, temp) {
+    return `
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+            <div class="panel-heading">${date}</div>
+                <div class="panel-body">
+                    <p>Temperature: ${temp}</p>
+                </div>
+            </div>
+        </div>
+    `
+}
+
+//When the search button is clicked - ajax call
+function searchButtonHandler() {
+    let searchInput = $searchInput.val();
+    searchInput = "chicago"
+
+    let apiKey = "ad4e109e5b7a1f3554d123fbf819c27f";
+    let weatherURL = `http://api.openweathermap.org/data/2.5/forecast?id=524901` + city + "&APPID" + apiKey;
+
+    $.ajax({
+        //get data from api
+        url:weatherURL,
+        succes: function (data) {
+
+            let appendedDates = [];
+            let appendCount = 0;
+
+            for (let i=0; i < data.list.length; i++) {
+                let curr = data.list[i]
+                let currDateText = curr.dt_txt
+                let currDate = currDateText.split(" ")[0];
+
+                console.log(currDate)
+
+
+            }
+
+            $("#myWeather").append(
+                getPanelHTML(date, temp)
+            )
+        }
+    })    
+}
+
+$searchButton.click(searchButtonHandler);
+
+</script>
