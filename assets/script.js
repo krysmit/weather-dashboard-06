@@ -1,4 +1,4 @@
-/*let $searchButton = $("search-style");
+let $searchButton = $("search-style");
 let $searchInput = $("btn-style");
 
 //panels to display information
