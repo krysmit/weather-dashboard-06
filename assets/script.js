@@ -21,12 +21,12 @@ function getPanelHTML(date, temp) {
 function searchButtonHandler() {
     let searchInput = $searchInput.val();
     console.log(searchInput);
-    let apiKey = 'ad4e109e5b7a1f3554d123fbf819c27f';
-    let weatherURL = 'http://api.openweathermap.org/data/2.5/forecast?id=524901${searchInput}&appid${apiKey}'
+    let apiKey = "ad4e109e5b7a1f3554d123fbf819c27f";
+    let weatherURL = `http://api.openweathermap.org/data/2.5/forecast?id=524901${searchInput}&appid${apiKey}`
 
     $.ajax({
         //get data from api
-        url:weatherURL,
+        url: weatherURL,
         succes: function (data) {
             console.log(data);
             let appendedDates = [];
