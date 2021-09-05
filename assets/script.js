@@ -1,5 +1,6 @@
-let $searchButton = $("search-style");
-let $searchInput = $("btn-style");
+console.log("hello I'm linked!");
+let $searchButton = $("#search-style");
+let $searchInput = $("#btn-style");
 
 //panels to display information
 function getPanelHTML(date, temp) {
@@ -15,13 +16,13 @@ function getPanelHTML(date, temp) {
     `
 }
 
+
 //When the search button is clicked - ajax call
 function searchButtonHandler() {
     let searchInput = $searchInput.val();
-    searchInput = "chicago"
-
+    console.log(searchInput);
     let apiKey = "ad4e109e5b7a1f3554d123fbf819c27f";
-    let weatherURL = `http://api.openweathermap.org/data/2.5/forecast?id=524901` + city + "&APPID" + apiKey;
+    let weatherURL = `http://api.openweathermap.org/data/2.5/forecast?id=524901${searchInput}&appid${apiKey}`
 
     $.ajax({
         //get data from api
@@ -37,15 +38,13 @@ function searchButtonHandler() {
                 let currDate = currDateText.split(" ")[0];
 
                 console.log(currDate)
-
-
             }
 
             $("#myWeather").append(
                 getPanelHTML(date, temp)
             )
         }
-    })    
+    })   
 }
 
 $searchButton.click(searchButtonHandler);
