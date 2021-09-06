@@ -1,6 +1,6 @@
 console.log("hello I'm linked!");
 let $searchButton = $("#search-style");
-let $searchInput = $("#btn-style");
+let $searchInput = $("#searchInput");
 
 //panels to display information
 function getPanelHTML(date, temp) {
