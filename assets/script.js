@@ -1,6 +1,7 @@
 console.log("hello I'm linked!");
-let $searchButton = $("#search-style");
-let $searchInput = $("#searchInput");
+var $searchButton = $("#search-style");
+var $searchInput = $("#searchInput").val();
+var apiKey = "ad4e109e5b7a1f3554d123fbf819c27f";
 
 //panels to display information
 function getPanelHTML(date, temp) {
@@ -16,26 +17,41 @@ function getPanelHTML(date, temp) {
     `
 }
 
+//Function to save to local storage
+$("search-style").click(function (){
+    $searchInput = $("#searchInput").val();
+    var checkArray = searchHistory.inclues($searchInput);
 
-//When the search button is clicked - ajax call
-function searchButtonHandler() {
-    let searchInput = $searchInput.val();
+    if (checkArray == true) {
+        return;
+    } else {
+        searchHistory.push($searchInput);
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    
+//need to write in code to list out history items below search area
+}});
+
+
+
+//When the search button is clicked - API ajax
+function searchButtonHandler(e) {
+    e.preventDefault();
+    var searchInput = $searchInput;
     console.log(searchInput);
-    let apiKey = "ad4e109e5b7a1f3554d123fbf819c27f";
-    let weatherURL = `http://api.openweathermap.org/data/2.5/forecast?id=524901${searchInput}&appid${apiKey}`
+    var weatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchInput + "&appid" + apiKey;
 
     $.ajax({
         //get data from api
         url: weatherURL,
         succes: function (data) {
             console.log(data);
-            let appendedDates = [];
-            let appendCount = 0;
+            var appendedDates = [];
+            var appendCount = 0;
 
-            for (let i=0; i < data.list.length; i++) {
-                let curr = data.list[i]
-                let currDateText = curr.dt_txt
-                let currDate = currDateText.split(" ")[0];
+            for (let i=0; i < 5; i++) {
+                var curr = data.list[i]
+                var currDateTexSt = curr.dt_txt
+                var currDate = currDateText.split(" ")[0];
 
                 console.log(currDate)
             }
