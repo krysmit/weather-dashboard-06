@@ -11,17 +11,34 @@
 </head>
 
 <body>
+    <header class="bg-primary text-center m-5 p-5">
+        <h1>Weather Dashboard</h1>
+        </header>
+        <main class="container">
+            
 <div class="row">
     <div class="col-sm">
         <input type="text" id="searchInput">
         <button type="button" class="btn-style" id="search-style">Search</button>
     </div>
+    <aside class="col-md">
+        <div class="row" id="myWeather"></div>
+    </aside>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="container d-flex flex-wrap " id="fiveday">
+
+        </div>
+    </div>
 </div>
 <div class="row" id="myWeather"></div>
 <div id="historyItems"></div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js%22%3E"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js%22%3E"></script>
+</main>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
 <script src='./assets/script.js'></script>
 </body>
 
