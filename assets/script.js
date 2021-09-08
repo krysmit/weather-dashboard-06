@@ -27,11 +27,42 @@ $("#search-style").click(function (event){
         searchHistory.push(searchInput);
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
     }
-    searchButtonHandler(searchInput);
+
     currentWeather(searchInput);
+    searchButtonHandler(searchInput);
 
 });
 
+//calling API for current weather
+function currentWeather(searchInput) {
+    console.log("current weather search input: ", searchInput);
+    var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + apiKey+"&units=imperial";
+     console.log("current weather api url: ", weatherURL)
+    $.ajax({
+        //get data from api
+        url: weatherURL,
+        method:"GET"
+    }).then(function (data) {
+            console.log("current weather data: ",data);
+            var appendedDates = [];
+            var appendHTML = "";
+            
+                appendHTML += `<div class="card btn-primary">
+                <h2>${searchInput}</h2>
+                <h3>Temp:${data.main.temp}
+                <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" /></h3>
+                <h4>Description: ${data.weather[0].description}</h4>
+                <h5>Humidity: ${data.main.humidity}</h5>
+                <h6>Wind Speed: ${data.wind.speed}</h6>
+                                `
+
+                //console.log("current weather date: ", currDate)
+            
+
+            $("#weatherNow").html(appendHTML)
+        
+    })   
+}
 
 //calling API for forecast
 function searchButtonHandler(searchInput) {
@@ -43,7 +74,7 @@ function searchButtonHandler(searchInput) {
         url: weatherURL,
         method:"GET"
     }).then(function (data) {
-            console.log("data: ", data);
+            console.log("forecast data: ", data);
             var appendedDates = [];
             var appendHTML = 0;
 
@@ -65,37 +96,6 @@ function searchButtonHandler(searchInput) {
             }
 
             $("#fiveday").html(appendHTML)
-        
-    })   
-}
-
-//calling API for current weather
-function currentWeather(searchInput) {
-    console.log("current weather search input: ", searchInput);
-    var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + apiKey+"&units=imperial";
-     console.log(weatherURL)
-    $.ajax({
-        //get data from api
-        url: weatherURL,
-        method:"GET"
-    }).then(function (data) {
-            console.log("current weather data: ",data);
-            var appendedDates = [];
-            var appendHTML = 0;
-            
-                let = appendHTML += `<div class="card btn-primary">
-                <h2>${searchInput}</h2>
-                <h3>Temp:${data}
-                <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" /></h3>
-                <h4>Description: ${data.weather[0].description}</h4>
-                <h5>Humidity: ${datamain.humidity}</h5>
-                <h6>Wind Speed: ${data.wind.speed}</h6>
-                                `
-
-                console.log("current weather date: ", currDate)
-            
-
-            $("#weatherNow").html(appendHTML)
         
     })   
 }
