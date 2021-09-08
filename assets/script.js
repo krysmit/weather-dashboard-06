@@ -1,53 +1,49 @@
-console.log("hello I'm linked!");
 var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || []
 // var $searchInput = $("#searchInput").val();
 var apiKey = "ad4e109e5b7a1f3554d123fbf819c27f";
 
 //panels to display information
-function getPanelHTML(date, temp) {
-    return `
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-            <div class="panel-heading">${date}</div>
-                <div class="panel-body">
-                    <p>Temperature: ${temp}</p>
-                </div>
-            </div>
-        </div>
-    `
-}
+// function getPanelHTML(date, temp) {
+//     return `
+//         <div class="col-sm-4">
+//             <div class="panel panel-default">
+//             <div class="panel-heading">${date}</div>
+//                 <div class="panel-body">
+//                     <p>Temperature: ${temp}</p>
+//                 </div>
+//             </div>
+//         </div>
+//     `
+// }
 
 //Function to save to local storage
 $("#search-style").click(function (event){
     event.preventDefault()
     let searchInput = $("#searchInput").val();
-    console.log(searchInput)
+    console.log("local storage search input: ", searchInput);
     var checkArray = searchHistory.includes(searchInput);
 
     if (checkArray === false) {
         searchHistory.push(searchInput);
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
     }
-    searchButtonHandler(searchInput)
+    searchButtonHandler(searchInput);
     currentWeather(searchInput);
-//need to write in code to list out history items below search area
+
 });
 
-//api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
 
-//When the search button is clicked - API ajax
+//calling API for forecast
 function searchButtonHandler(searchInput) {
-    // e.preventDefault();
-    // var searchInput = $searchInput;
-    console.log(searchInput);
+    console.log("forecast search input: ", searchInput);
     var weatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchInput + "&appid=" + apiKey+"&units=imperial";
-     console.log(weatherURL)
+     console.log("forecast api url: ", weatherURL)
     $.ajax({
         //get data from api
         url: weatherURL,
         method:"GET"
     }).then(function (data) {
-            console.log(data);
+            console.log("data: ", data);
             var appendedDates = [];
             var appendHTML = 0;
 
@@ -65,18 +61,17 @@ function searchButtonHandler(searchInput) {
 
                                 `
 
-                console.log(currDate)
+                console.log("current date: ", currDate)
             }
 
             $("#fiveday").html(appendHTML)
         
     })   
 }
-//api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+
+//calling API for current weather
 function currentWeather(searchInput) {
-    // e.preventDefault();
-    // var searchInput = $searchInput;
-    console.log(searchInput);
+    console.log("current weather search input: ", searchInput);
     var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + apiKey+"&units=imperial";
      console.log(weatherURL)
     $.ajax({
@@ -84,10 +79,9 @@ function currentWeather(searchInput) {
         url: weatherURL,
         method:"GET"
     }).then(function (data) {
-            console.log(data);
+            console.log("current weather data: ",data);
             var appendedDates = [];
             var appendHTML = 0;
-    console.log("it works")
             
                 let = appendHTML += `<div class="card btn-primary">
                 <h2>${searchInput}</h2>
@@ -98,13 +92,10 @@ function currentWeather(searchInput) {
                 <h6>Wind Speed: ${data.wind.speed}</h6>
                                 `
 
-                console.log(currDate)
+                console.log("current weather date: ", currDate)
             
 
-            $("#fiveday").html(appendHTML)
+            $("#weatherNow").html(appendHTML)
         
     })   
 }
-
-
-// $searchButton.click(searchButtonHandler);

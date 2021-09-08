@@ -16,6 +16,7 @@
         </header>
         <main class="container">
             
+<!--search button-->            
 <div class="row">
     <div class="col-sm">
         <input type="text" id="searchInput">
@@ -26,6 +27,16 @@
     </aside>
 </div>
 
+<!--displaying current weather-->
+<div class="row">
+    <div class="col-8">
+        <div class="container d-flex flex-wrap " id="weatherNow">
+
+        </div>
+    </div>
+</div>
+
+<!--displaying forecast-->
 <div class="row">
     <div class="col-md-12">
         <div class="container d-flex flex-wrap " id="fiveday">
@@ -33,14 +44,19 @@
         </div>
     </div>
 </div>
+
+<!--displaying search history-->
 <div class="row" id="myWeather"></div>
 <div id="historyItems"></div>
+
 </main>
+
 <script
   src="https://code.jquery.com/jquery-3.6.0.js"
   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
   crossorigin="anonymous"></script>
 <script src='./assets/script.js'></script>
+
 </body>
 
 </html>
