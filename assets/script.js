@@ -43,7 +43,11 @@ function currentWeather(searchInput) {
         method:"GET"
     }).then(function (data) {
             console.log("current weather data: ",data);
-            // var appendedDates = [];
+
+            var currentUV = `https://api.openweathermap.org/data/2.5/uvi?q=&lat=${lat}&lon=${lon}&appid=${key}`;
+
+            console.log("currentUV: ", currentUV);
+
             var appendHTML = "";
             
                 appendHTML += `<div class="card btn-primary">
@@ -55,13 +59,13 @@ function currentWeather(searchInput) {
                 <h6>Wind Speed: ${data.wind.speed}</h6>
                                 `
 
-                //console.log("current weather date: ", currDate)
-            
-
             $("#weatherNow").html(appendHTML)
         
+
     })   
 }
+
+
 
 //calling API for forecast
 function searchButtonHandler(searchInput) {
