@@ -2,19 +2,6 @@ var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || []
 // var $searchInput = $("#searchInput").val();
 var apiKey = "ad4e109e5b7a1f3554d123fbf819c27f";
 
-//panels to display information
-// function getPanelHTML(date, temp) {
-//     return `
-//         <div class="col-sm-4">
-//             <div class="panel panel-default">
-//             <div class="panel-heading">${date}</div>
-//                 <div class="panel-body">
-//                     <p>Temperature: ${temp}</p>
-//                 </div>
-//             </div>
-//         </div>
-//     `
-// }
 
 //Function to save to local storage
 $("#search-style").click(function (event){
@@ -26,12 +13,24 @@ $("#search-style").click(function (event){
     if (checkArray === false) {
         searchHistory.push(searchInput);
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
-    }
+//adding searched items to a list
+    } else {
+        searchHistory.push(searchInput);
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    
+        var historyButton = $("<a>").attr({
+          class: "list-group-item list-group-item-action",
+          href: "#",
+        })
+    
+    historyButton.text(searchInput);
+    $("#searchList").append(historyButton);
 
     currentWeather(searchInput);
     searchButtonHandler(searchInput);
 
-});
+    }});
+
 
 //calling API for current weather
 function currentWeather(searchInput) {
@@ -44,7 +43,7 @@ function currentWeather(searchInput) {
         method:"GET"
     }).then(function (data) {
             console.log("current weather data: ",data);
-            var appendedDates = [];
+            // var appendedDates = [];
             var appendHTML = "";
             
                 appendHTML += `<div class="card btn-primary">
@@ -75,7 +74,7 @@ function searchButtonHandler(searchInput) {
         method:"GET"
     }).then(function (data) {
             console.log("forecast data: ", data);
-            var appendedDates = [];
+            // var appendedDates = [];
             var appendHTML = 0;
 
             for (let i=0; i < data.list.length; i=i+8) {
